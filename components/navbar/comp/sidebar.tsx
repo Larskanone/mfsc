@@ -163,11 +163,17 @@ interface SidebarMenuButtonProps
 
 export const SidebarMenuButton = React.forwardRef<HTMLButtonElement, SidebarMenuButtonProps>(
   ({ className, isActive, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? React.Fragment : "button"
-    return <Comp ref={ref} className={cn(sidebarMenuButtonVariants({ isActive, size, className }))} {...props} />
-  },
-)
-SidebarMenuButton.displayName = "SidebarMenuButton"
+    const Comp = asChild ? "span" : "button"; // Changed to a valid component
+    return (
+      <Comp
+        {...(asChild ? {} : { ref })}
+        className={cn(sidebarMenuButtonVariants({ isActive, size, className }))}
+        {...props}
+      />
+    );
+  }
+);
+SidebarMenuButton.displayName = "SidebarMenuButton";
 
 interface SidebarMenuActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   showOnHover?: boolean
