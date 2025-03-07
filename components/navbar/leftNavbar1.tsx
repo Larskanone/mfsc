@@ -1,5 +1,9 @@
 "use client"
-import { BarChart3, Home, LayoutDashboard, MessageSquare, Settings, ShoppingCart, Users } from "lucide-react"
+import { Home, Images, LandPlot, Link as LinkIcon, Plane, Section } from "lucide-react"
+import Image from 'next/image'
+import Logo from './logo.svg'
+import { useLocation } from 'react-router-dom'
+
 
 import {
   Sidebar,
@@ -9,30 +13,38 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail 
+  SidebarRail
 } from "./comp/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "./comp/avatar"
+import { Link } from "@mui/joy"
+
 
 // Navigation items data
 const navItems = [
-  { icon: Home, label: "Home", href: "/home" },
-  { icon: LayoutDashboard, label: "Dashboard", href: "#", active: true },
-  { icon: ShoppingCart, label: "Products", href: "#" },
-  { icon: Users, label: "Customers", href: "#" },
-  { icon: BarChart3, label: "Analytics", href: "#" },
-  { icon: MessageSquare, label: "Messages", href: "#" },
-  { icon: Settings, label: "Settings", href: "#" },
+  { icon: Home, label: "Der Verein", href: "/verein" }, // Wir über uns, Vorstand, Mitglieder
+  { icon: LandPlot, label: "Der Flugplatz", href: "/flugplatz" },
+  { icon: Images, label: "Galerie", href: "/galerie" },
+  { icon: LinkIcon, label: "Links", href: "/links" },
+  { icon: Plane, label: "Modelle", href: "/modelle" },
+  { icon: Section, label: "Rechtliches", href: "/legal" },
 ]
 
-export function LeftNavbar() {
+export function LeftNavbarComp() {
+
+  const usePathname = () => {
+    if (typeof window !== "undefined") {
+      const location = useLocation();
+      return location.pathname;
+    }
+  }
+
   return (
     <Sidebar>
-      <SidebarHeader className="border-b px-4 py-6">
+      <SidebarHeader className="border-b px-4 py-6 flex justify-center items-center">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">L</span>
-          </div>
-          <span className="text-lg font-semibold">LeftNav</span>
+          <Link href="/">
+            <Image src={Logo} alt="Logo" width={100} height={100} />
+          </Link>
         </div>
       </SidebarHeader>
 
@@ -40,7 +52,7 @@ export function LeftNavbar() {
         <SidebarMenu>
           {navItems.map((item) => (
             <SidebarMenuItem key={item.label}>
-              <SidebarMenuButton asChild isActive={item.active}>
+              <SidebarMenuButton asChild isActive={usePathname() === item.href}>
                 <a href={item.href} className="flex items-center gap-3">
                   <item.icon className="h-5 w-5" />
                   <span>{item.label}</span>
@@ -68,4 +80,3 @@ export function LeftNavbar() {
     </Sidebar>
   )
 }
-
