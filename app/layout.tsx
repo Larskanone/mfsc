@@ -40,9 +40,9 @@ export default function RootLayout({
           <div className="absolute top-0 left-0">
             <LeftNavbar />
           </div>
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+          <main className="min-h-screen flex flex-col items-center gap-20">
+            <div className="w-full flex flex-col gap-20 items-center">
+              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16 gap-20">
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography>MFSC-Heringen e.V.</Typography>
                 </Box>
